@@ -8,7 +8,7 @@
 # User-specific stuff
 out/
 build/
-autoservice-app-console/test_base/
+/autoservice-app-console/test_base/
 /.idea/
 /.gradle/
 !/build.gradle
