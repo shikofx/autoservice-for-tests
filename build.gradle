@@ -87,45 +87,33 @@ subprojects {
     }
 
 //    Allure report
-    task generateAllureReport(type: Exec) {
-        commandLine 'cmd', '/c', 'allure', 'generate', '-c', "$projectDir/build/allure-results",
-                    '-o', "$projectDir/build/reports/allure"
-    }
-
-    allure {
-        autoconfigure = true
-        aspectjweaver = true
-        version = "${allure_Version}"
-    }
+//    task generateAllureReport(type: Exec) {
+//        commandLine 'cmd', '/c', 'allure', 'generate', '-c', "$projectDir/build/allure-results",
+//                    '-o', "$projectDir/build/reports/allure"
+//    }
 //
-//    Jacoco coverage
-    jacoco {
-        version = "${jacoco_Version}"
-    }
-
-    jacocoTestReport {
-        reports {
-            html.enabled = true
-            xml.enabled = true
-            csv.enabled = true
-        }
-    }
-
-    test {
-        testLogging.showStandardStreams = true
-        finalizedBy(generateAllureReport)
-        finalizedBy(jacocoTestReport)
-    }
-
-//    project(':autoservice-ws-autoorder-tests'){
-//        dependencies{
-//            project(':autoservice-ws-autoorder')
+//    allure {
+//        autoconfigure = true
+//        aspectjweaver = true
+//        version = "${allure_Version}"
+//    }
+////
+////    Jacoco coverage
+//    jacoco {
+//        version = "${jacoco_Version}"
+//    }
+//
+//    jacocoTestReport {
+//        reports {
+//            html.enabled = true
+//            xml.enabled = true
+//            csv.enabled = true
 //        }
 //    }
 //
-//    project(':autoservice-app-web'){
-//        dependencies{
-//            project(':autoservice-ws-autoorder')
-//        }
+//    test {
+//        testLogging.showStandardStreams = true
+//        finalizedBy(generateAllureReport)
+//        finalizedBy(jacocoTestReport)
 //    }
 }
