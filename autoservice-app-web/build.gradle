@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'java'
+}
+
+group "$applicationGroup"
+version "$applicationVersion"
+
+
+apply plugin: 'io.spring.dependency-management'
+
+
+dependencies {
+    testImplementation group: 'org.springframework.boot',
+                       name: 'spring-boot-starter-test'
+    testCompile group: 'com.vaadin',
+                name: 'vaadin-testbench'
+    implementation group:'org.springframework.boot',
+                   name: 'spring-boot-starter-jersey'
+    implementation group: 'org.springframework.boot',
+                   name:'spring-boot-starter-web'
+    implementation group: 'com.vaadin',
+                   name:'vaadin-spring-boot-starter'
+    runtimeOnly group: 'org.springframework.boot',
+                name: 'spring-boot-devtools'
+    compile group: 'org.projectlombok',
+            name: 'lombok',
+            version: '1.18.8'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+    }
+}
+
+//ext {
+//    junitFoundation = configurations.compile.resolvedConfiguration.resolvedArtifacts.
+//            find { it.name == 'junit-foundation' }
+//}
+//
+//test.doFirst {
+//    jvmArgs "-javaagent:${junitFoundation.file}"
+//}

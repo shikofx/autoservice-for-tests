@@ -1,0 +1,40 @@
+group "$applicationGroup"
+version "$applicationVersion"
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+defaultTasks 'clean', 'build'
+
+dependencies {
+    agent "org.aspectj:aspectjweaver:1.9.2"
+    testCompile group: 'junit',
+                name: 'junit',
+                version: '4.12'
+
+    testCompile group: 'org.mockito',
+                name: 'mockito-all',
+                version: '1.10.19'
+
+    compile     group: 'org.apache.derby',
+                name: 'derby',
+                version: '10.14.2.0'
+
+    compile     group: 'org.apache.derby',
+                name: 'derbyclient',
+                version: '10.14.2.0'
+
+    compile     group: 'org.apache.derby',
+                name: 'derbytools',
+                version: '10.14.2.0'
+}
+
+//ext {
+//    junitFoundation = configurations.compile.resolvedConfiguration.resolvedArtifacts.
+//            find { it.name == 'junit-foundation' }
+//}
+//
+//test.doFirst {
+//    jvmArgs "-javaagent:${junitFoundation.file}"
+//}

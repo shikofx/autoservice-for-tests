@@ -1,0 +1,11 @@
+<configuration>
+    <appender name="ReportPortalAppender" class="com.epam.ta.reportportal.log4j.appender.ReportPortalAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{HH:mm:ss}] %-5p (%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+    <root>
+        <level value="info"/>
+        <appender-ref ref="ReportPortalAppender"/>
+    </root>
+</configuration>

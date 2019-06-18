@@ -1,0 +1,137 @@
+group "$applicationGroup"
+version "$applicationVersion"
+
+wrapper {
+    gradleVersion = '5.4'
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:${allure_GradleVersion}"
+    }
+
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    compileTestJava {
+        options.encoding = 'UTF-8'
+    }
+
+    dependencies {
+
+    }
+
+    configurations {
+        agent
+    }
+
+    apply plugin: 'io.qameta.allure'
+    apply plugin: 'jacoco'
+
+    repositories {
+        maven { url 'https://jitpack.io' }
+        maven { url "http://dl.bintray.com/epam/reportportal" }
+    }
+
+    dependencies {
+        agent group: 'org.aspectj',
+              name: 'aspectjweaver',
+              version: "${aspectJVersion}"
+        testCompile group: 'junit',
+                    name: 'junit',
+                    version: "${junitVersion}"
+        testCompile group: 'org.assertj',
+                    name: 'assertj-core',
+                    version: "$assertJVersion"
+        testCompile group: 'org.mockito',
+                    name: 'mockito-all',
+                    version: "${mockitoVersion}"
+        testCompile group: 'ru.yandex.qatools.allure',
+                    name: 'allure-junit-adaptor',
+                    version: "${allure_JUnitAdaptorVersion}"
+        testCompile group: 'com.tngtech.java',
+                    name: 'junit-dataprovider',
+                    version: "$tngtechDataProviderVersion"
+        compile group: 'com.google.code.gson',
+                name: 'gson',
+                version: "$gsonVersion"
+        compile group: 'log4j',
+                name: 'log4j',
+                version: "$log4jVersion"
+        compile group: 'com.epam.reportportal',
+                name: 'logger-java-log4j',
+                version: "${rp_log4jVersion}"
+        compile group: 'com.epam.reportportal',
+                name: 'agent-java-junit',
+                version: "${rp_agentJunitVersion}"
+
+    }
+
+    subprojects {":autocervice-app-web"
+        compile project(":autoservice-ws-autoorder")
+    }
+
+//    Allure report
+//    task generateAllureReport(type: Exec) {
+//        commandLine 'cmd', '/c', 'allure', 'generate', '-c', "$projectDir/build/allure-results",
+//                    '-o', "$projectDir/build/reports/allure"
+//    }
+//
+//    allure {
+//        autoconfigure = true
+//        aspectjweaver = true
+//        version = "${allure_Version}"
+//    }
+////
+////    Jacoco coverage
+//    jacoco {
+//        version = "${jacoco_Version}"
+//    }
+//
+//    jacocoTestReport {
+//        reports {
+//            html.enabled = true
+//            xml.enabled = true
+//            csv.enabled = true
+//        }
+//    }
+//
+//    test {
+//        testLogging.showStandardStreams = true
+//        finalizedBy(generateAllureReport)
+//        finalizedBy(jacocoTestReport)
+//    }
+
+    
+//    project(':autoservice-ws-autoorder-tests'){
+//        dependencies{
+//            project(':autoservice-ws-autoorder')
+//        }
+//    }
+//
+//    project(':autoservice-app-web'){
+//        dependencies{
+//            project(':autoservice-ws-autoorder')
+//        }
+//    }
+}
